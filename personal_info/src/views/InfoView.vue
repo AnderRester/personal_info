@@ -26,7 +26,7 @@
         id="findStudentInput"
         placeholder="Enter Student data"
       />
-      <button @click="" id="removeStudent">Remove</button>
+      <button @click="removeStudent()" id="removeStudent">Remove</button>
       <button @click="" id="findStudent">Find</button>
     </div>
     <div id="main_cont_wrapper">
@@ -81,19 +81,45 @@ export default {
       printOption: 1,
     };
   },
-  computed: {},
   methods: {
     addNewStudent() {
       if (this.addName == "" || this.addPhone == "" || this.addEmail == "") {
         alert("Empty fields left");
       } else {
-          this.usarbDatabase.push({studentName: this.addName, studentPhone: this.addPhone, studentEmail: this.addEmail});
+        this.usarbDatabase.push({
+          studentName: this.addName,
+          studentPhone: this.addPhone,
+          studentEmail: this.addEmail,
+        });
+      }
+    },
+    findStudent() {
+      if (this.findStudentInput == "") {
+        alert("Find field is empty");
+      } else {
+        this.usarbDatabase = this.usarbDatabase.filter(array, index,);
+        // for(let i = 0; i < this.usarbDatabase.length; i++) {
+        //     for(let key in this.usarbDatabase[i]) {
+        //         if(this.findStudentInput == this.usarbDatabase[i][key]) {
+        //         } else {}
+        //     }
+        // }
       }
     },
     removeStudent() {
-        if(this.findStudentInput == "") {
-            alert("Find field is empty");
+      if (this.findStudentInput == "") {
+        alert("Find field is empty");
+      } else {
+        for (let i = 0; i < this.usarbDatabase.length; i++) {
+          console.log(i);
+          for (let key in this.usarbDatabase[i]) {
+            if (this.findStudentInput == this.usarbDatabase[i][key]) {
+              this.usarbDatabase.splice(i, 1);
+            } else {
+            }
+          }
         }
+      }
     },
     getValue() {
       return (this.value = this.getItemValue);
