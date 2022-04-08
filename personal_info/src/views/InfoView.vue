@@ -1,7 +1,7 @@
 <template>
   <div class="info">
     <div id="functional">
-      <button @click="" id="addStudent">Add</button>
+      <button @click="addNewStudent" id="addStudent">Add</button>
       <input
         type="text"
         v-model="addName"
@@ -20,27 +20,28 @@
         id="addEmail"
         placeholder="Enter Student's Email"
       />
-      <button @click="" id="removeStudent">Remove</button>
       <input
         type="text"
         v-model="findStudentInput"
         id="findStudentInput"
         placeholder="Enter Student data"
       />
+      <button @click="" id="removeStudent">Remove</button>
       <button @click="" id="findStudent">Find</button>
     </div>
     <div id="main_cont_wrapper">
       <div id="appSelection">
         <div id="selectionWrapper">
           <div class="selectionHeader">USARB Database</div>
-            <div
-              id="printStudentsName"
-              v-for="printOption in usarbDatabase.length - 1"
-              :key="printOption">
-              <option @click="printInfo">
-                {{ usarbDatabase[printOption].studentName }}
-              </option>
-            </div>
+          <div
+            id="printStudentsName"
+            v-for="printOption in usarbDatabase.length - 1"
+            :key="printOption"
+          >
+            <option @click="printInfo(printOption)">
+              {{ usarbDatabase[printOption].studentName }}
+            </option>
+          </div>
         </div>
       </div>
       <div id="appPrint">
@@ -82,25 +83,36 @@ export default {
   },
   computed: {},
   methods: {
-    addNewStudent() {},
+    addNewStudent() {
+      if (this.addName == "" || this.addPhone == "" || this.addEmail == "") {
+        alert("Empty fields left");
+      } else {
+          this.usarbDatabase.push({studentName: this.addName, studentPhone: this.addPhone, studentEmail: this.addEmail});
+      }
+    },
+    removeStudent() {
+        if(this.findStudentInput == "") {
+            alert("Find field is empty");
+        }
+    },
     getValue() {
       return (this.value = this.getItemValue);
     },
-    printInfo() {
+    printInfo(number) {
       this.getValue();
       const printInfoAbout = document.getElementById("printOption");
-      this.setAttribute
+      this.setAttribute;
       printInfoAbout.innerHTML = "";
       printInfoAbout.append(
-        this.usarbDatabase[this.value].studentName,
+        this.usarbDatabase[number].studentName,
         document.createElement("br")
       );
       printInfoAbout.append(
-        this.usarbDatabase[this.value].studentPhone,
+        this.usarbDatabase[number].studentPhone,
         document.createElement("br")
       );
       printInfoAbout.append(
-        this.usarbDatabase[this.value].studentEmail,
+        this.usarbDatabase[number].studentEmail,
         document.createElement("br")
       );
     },
@@ -116,7 +128,7 @@ export default {
   }
 }
 #selectedStudent {
-    display: block;
+  display: block;
 }
 #printStudentsName {
   list-style: none;
